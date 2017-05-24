@@ -1,6 +1,10 @@
 {
+
   "require": {
-    "silex/silex": "~1.1"
+
+    "twig/extensions": "~1.0"
+
   }
+
 }
 
