@@ -1,0 +1,24 @@
+https://openclassrooms.com/courses/concevez-votre-site-web-avec-php-et-mysql/fonctionnement-d-un-site-ecrit-en-php
+
+Base de donées phpMyAdmin :
+http://127.0.0.1/phpmyadmin/db_structure.php?server=1&db=jeuxind%C3%A9s&token=52a6e0d58f128bf0948ae3288aec1ecd
+
+Déploiement local :
+Aller dans le dossier C:\wamp64\www\Projet_Indes-Couvertes
+http://127.0.0.1/Projet_Indes-Couvertes/
+
+Déploiement sur Github :
+https://tutorial.djangogirls.org/fr/deploy/
+
+https://openclassrooms.com/courses/developpez-votre-site-web-avec-le-framework-symfony2/deployer-son-site-symfony2-en-production
+
+Wampserver :
+https://openclassrooms.com/courses/creez-votre-site-avec-wordpress/installation-et-configuration-7
+
+Composer :
+http://jefaisvotresite.com/blog/article/composer
+
+Déploiement site PHP sur Heroku :
+https://www.heroku.com/php
+https://devcenter.heroku.com/articles/getting-started-with-php#introduction
+https://devcenter.heroku.com/articles/getting-started-with-symfony
