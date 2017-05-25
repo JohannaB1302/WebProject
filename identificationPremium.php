@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<?php include("en_tete.php"); ?>
+
+<body>
+  <nav id="selection_accès">
+    <div class="option_accès">
+      <h1>Identifiez-vous pour accéder à votre espace Premium</h1>       
+      <ul>
+        <h2>Identification - Accès Premium</h2>
+        <form method="post" action="recherchePremium.php">
+          <fieldset>
+            <legend>Veuillez remplir tous les champs :</legend>
+            Pseudo :<br>
+            <input type="text" name="pseudo">
+            <br>
+            Mot de passe :<br>
+            <input type="password" name="mdp">
+            <br>
+            <input type="submit" value="Accéder à l'espace Premium" onclick="window.location.href='recherchePremium.php?pseudo&amp;prenom&amp;nbEvalsCompletes=$nbEvalsCompletes"> <!-- redirection vers recherchePremium-->
+            <br>
+          </fieldset>
+        </form>
+      </ul>
+    </div>
+  </nav>
+  <?php try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=jeuxindés;charset=utf8', 'root', ''); // A modifier lors du déploiement
+}
+catch (Exception $e)
+{
+    die('Erreur : ' . $e->getMessage());
+}
+$reponseMembre = $bdd->query('SELECT * FROM membre_premium');
+// On affiche chaque entrée une à une
+while ($membre = $reponseMembre->fetch())
+{
+  if ($membre['pseudo'] == NULL OR $membre['motDePasse'] == NULL) // On vérifie s'il n'y a pas de champ vide
+  {
+    echo 'Tous les champs ne sont pas remplis !';
+  }
+  else // Si c'est bon, on enregistre les informations dans la base
+  {
+    $bdd->prepare('INSERT INTO membre_premium VALUES ("pseudo", "mdp")');
+    $bdd->execute(array($membre['pseudo'], $membre['motDePasse']));
+    /* Puis on envoie les informations
+    for ($numero = 1 ; $numero <= 3 ; $numero++)
+    {
+      if ($_FILES['photo' . $numero]['error'] == 0)
+      {
+            if ($_FILES['photo' . $numero]['size'] < 500000)
+            {
+                move_uploaded_file($_FILES['photo' . $numero]['tmp_name'], $numero . '.jpg');
+            }
+            else
+            {
+                echo 'La photo ' . $numero . 'n\'est pas valide.<br />';*/
+                $probleme = true;
+            //}
+        //}
+    }
+    // Enfin, affichage d'un message de confirmation si tout s'est bien passé
+    if (!(isset($probleme)))
+    {
+        echo 'Merci ! Les informations ont été correctement enregistrées !';
+    }
+} ?>
+    <?php function compterNbEvalsCompletes($evalsCompletes){};
+    $nbEvalsCompletes = compterNbEvalsCompletes($membre['pseudo']);
+    // Envoyer nbEvalsCompltes a reductions
+$reponseMembre->closeCursor(); // Termine le traitement des requêtes ?>
+
+   	<?php include("pied_de_page.php"); ?>
+  </body>
+</html>
