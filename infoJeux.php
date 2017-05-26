@@ -9,7 +9,7 @@
     <tr>
     <?php try
 {
-    $bdd = new PDO('mysql:host=localhost;dbname=jeuxindés;charset=utf8', 'root', ''); // A modifier lors du déploiement
+    $bdd = new PDO('mysql:host=sql.herokuapp.com/;dbname=jeuxindes;charset=utf8', 'j.boiteux@outlook.fr', 'login1302');
 }
 catch (Exception $e)
 {
