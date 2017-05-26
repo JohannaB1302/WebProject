@@ -1,3 +1,7 @@
+<!-- Utiliser la fonction setcookie() pour gérer la connexion du membre et réduire les risques de faille XSS sur le site-->
+<?php setcookie('pseudo', $pseudo, time() + 365*24*3600, null, null, false, true);
+setcookie('mdp', $hash, time() + 365*24*3600, null, null, false, true);
+//Ces informations sont placées dans la superglobale  $_COOKIE ?>
 <!DOCTYPE html>
 <html lang="fr">
 <?php include("en_tete.php"); ?>
@@ -26,7 +30,7 @@
   </nav>
   <?php try
 {
-    $bdd = new PDO('mysql:host=localhost;dbname=jeuxindés;charset=utf8', 'root', ''); // A modifier lors du déploiement
+    $bdd = new PDO('mysql:host=localhost;dbname=jeuxindes;charset=utf8', 'root', ''); // A modifier lors du déploiement
 }
 catch (Exception $e)
 {
@@ -65,11 +69,34 @@ while ($membre = $reponseMembre->fetch())
     {
         echo 'Merci ! Les informations ont été correctement enregistrées !';
     }
-} ?>
+  } ?>
     <?php function compterNbEvalsCompletes($evalsCompletes){};
     $nbEvalsCompletes = compterNbEvalsCompletes($membre['pseudo']);
     // Envoyer nbEvalsCompltes a reductions
-$reponseMembre->closeCursor(); // Termine le traitement des requêtes ?>
+    $reponseMembre->closeCursor(); // Termine le traitement des requêtes
+    // Hachage du mot de passe
+    $pass = 'mdp';
+    $hash = password_hash($pass,PASSWORD_BCRYPT,['cost' => 13]);
+
+    // Vérification des identifiants
+    $req = $bdd->prepare('SELECT pseudo FROM membres WHERE pseudo = :pseudo AND mdp = :mdp');
+    $req->execute(array(
+        'pseudo' => $pseudo,
+        'hash' => $hash));
+
+    $resultat = $req->fetch();
+    if (!$resultat)
+    {
+        echo 'Mauvais identifiant ou mot de passe !';
+    }
+    else
+    {
+        echo 'Vous êtes connecté !';
+    }
+    if (isset($_COOKIE['pseudo']) AND isset($_COOKIE['hash']))
+    {
+        echo 'Bonjour ' . $_COOKIE['pseudo'];
+    } ?>
 
    	<?php include("pied_de_page.php"); ?>
   </body>

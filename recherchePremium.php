@@ -1,12 +1,3 @@
-<!-- Utiliser la fonction setcookie() pour gérer la connexion du membre et réduire les risques de faille XSS sur le site-->
-<?php setcookie('pseudo', 'Johanna', time() + 365*24*3600, null, null, false, true);
-setcookie('nom', 'BOITEUX', time() + 365*24*3600, null, null, false, true);
-setcookie('prenom', 'Johanna', time() + 365*24*3600, null, null, false, true);
-setcookie('mail', 'aa', time() + 365*24*3600, null, null, false, true);
-setcookie('mdp', 'coucou', time() + 365*24*3600, null, null, false, true);
-setcookie('nbEvalsCompletes', 0, time() + 365*24*3600, null, null, false, true); 
-//Ces informations sont placées dans la superglobale  $_COOKIE ?>
-
 <!--Contient les fonctionnalités de recherche réservées aux memebres Premium-->
 <!DOCTYPE html>
 <html lang="fr">
@@ -16,7 +7,7 @@ setcookie('nbEvalsCompletes', 0, time() + 365*24*3600, null, null, false, true);
 
 <body>
   <?php // On crée notre array $membrePremium et on protège le code HTML en retirant les balises
-  $membrePremium = array (
+    $membrePremium = array (
     'P' => strip_tags($_COOKIE['pseudo']),
     'N' => strip_tags($_COOKIE['nom']),
     'Pré' => strip_tags($_COOKIE['prenom']),
@@ -37,7 +28,7 @@ setcookie('nbEvalsCompletes', 0, time() + 365*24*3600, null, null, false, true);
     else // Il manque des paramètres, on avertit le visiteur
     {
         echo 'Il faut renseigner votre pseudo et un mot de passe !';
-    } ?>
+    }?>
 
   <?php include("recherche.php"); // Voir comment enlever connexion.php ?>
   <dl>

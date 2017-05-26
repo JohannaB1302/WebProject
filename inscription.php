@@ -10,13 +10,10 @@
                 <fieldset>
                     <legend>Veuillez remplir tous les champs :</legend>
                     Prénom :<br>
-                    <input type="text" name="prenom" value="NULL">
-                    <br>
-                    Nom :<br>
-                    <input type="text" name="nom">            
+                    <input type="text" name="prenom">
                     <br>
                     Pseudo :<br>
-                    <input type="text" name="pseudo" value="NULL">            
+                    <input type="text" name="pseudo">            
                     <br>
                     Mail :<br>
                     <input type="text" name="mail">
@@ -25,15 +22,61 @@
                     <input type="password" name="mdp">
                     <br>
                     <!-- Envoyer nbEvalsCompltes=0 a reductions -->
-                    <input type="hidden" name="nbEvalsCompletes" value="0" />
-                    <input type="submit" value="S'inscrire" onclick="window.location.href='recherchePremium.php?pseudo&amp;prenom&amp;mdp'"> <!-- redirection vers recherchePremium-->
+                    <input type="hidden" name="nbEvalsCompletes" value="0"/>
+                    <input type="submit" value="S'inscrire" onclick="window.location.href='recherchePremium.php?pseudo&amp;prenom&amp;mail&amp;mdp'">
                     <br>
                 </fieldset>
             </form>
         </ul>
     </div>
 </nav>
-
+<?php try
+{
+    $bdd = new PDO('mysql:host=localhost;dbname=jeuxindés;charset=utf8', 'root', ''); // A modifier lors du déploiement
+}
+catch (Exception $e)
+{
+    die('Erreur : ' . $e->getMessage());
+}
+// Hachage du mot de passe
+$pass = 'mdp';
+$hash = password_hash($pass,PASSWORD_BCRYPT,['cost' => 13]);
+// Comparaison du mot de passe et du hash
+if(password_verify($pass, $hash))
+{
+    echo 'OK';
+} else {
+    echo 'ERREUR';
+}
+// Envoi des infos du membre dans la BDD
+$req = $bdd->prepare('INSERT INTO membre_premium(pseudo, prenom, adresseMail, motDePasse) VALUES(:pseudo, :prenom, :mail, :mdp)');
+$req->execute(array(
+    'pseudo' => $pseudo,
+    'prenom' => $prenom,
+    'email' => $mail,
+    'hash' => $hash));
+    // Verification de l'existence d'un pseudo similaire dans la BDD
+    $resultat = $req->fetch();
+    if (!$resultat)
+    {
+        echo 'Ce pseudo est déjà pris !';
+    }
+    else
+    {
+        // Verification de la forme du mail
+        if (isset($_POST['mail']))
+        {
+            $_POST['mail'] = htmlspecialchars($_POST['mail']); // On rend inoffensives les balises HTML que le visiteur a pu rentrer
+            if (preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $_POST['mail'])) // Expression régulière a chercher dabns le champ 'Mail'
+            {
+                echo 'L\'adresse ' . $_POST['mail'] . ' est <strong>valide</strong> !';
+            }
+            else
+            {
+                echo 'L\'adresse ' . $_POST['mail'] . ' n\'est pas valide, recommencez !';
+            }
+        }
+    } ?>
     <?php include("pied_de_page.php"); ?>
   </body>
 </html

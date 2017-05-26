@@ -4,16 +4,16 @@
 <!-- Voir sur http://fr.php.net/manual/fr/funcref.php la bibliothèque des fonctions php -->
 <body>
   <header>
-    <h1>Accédez dès maintenant à Indé-Couvertes !</h1>     
+    <h1 align="center">Accédez dès maintenant à Indé-Couvertes !</h1>     
     <nav id="selection_accès">
         <div class="option_accès">
-        <h2>Choisissez votre accès</h2>
-        <p>
+        <h2 align="center">Choisissez votre accès</h2>
+        <p align="center">
         Vous pouvez accéder à Indé-Couvertes en tant que simple visiteur, ou <strong style="color: red">bénéficier des avantages du club Premium</strong>. Il suffit de vous inscrire !<br>
         </p>
         <ul>
         <!--redirection vers recherche-->
-        <li><a href="recherche.php">Simple visite</a></li>
+        <li align="center"><a href="recherche.php">Simple visite</a></li>
         <!--redirection vers le formulaire d'inscription-->
         <li><a href="inscription.php">M'inscrire</a></li>
         <!--redirection vers identificationPremium-->
