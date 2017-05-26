@@ -5,7 +5,7 @@
   <?php // Connexion à la base de données
 try
 {
-   $bdd = new PDO('mysql:host=heroku.com;dbname=jeuxindes;charset=utf8', 'j.boiteux@outlook.fr', 'login1302');
+   $bdd = new PDO('mysql:host=inde-couvertes.herokuapp.com;dbname=jeuxindes;charset=utf8', 'j.boiteux@outlook.fr', 'login1302');
 }
 catch(Exception $e)
 {
