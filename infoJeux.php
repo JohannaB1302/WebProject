@@ -9,7 +9,7 @@
     <tr>
     <?php try
 {
-    $bdd = new PDO('mysql:host=inde-couvertes.herokuapp.com;dbname=jeuxindes;charset=utf8', 'j.boiteux@outlook.fr', 'login1302');
+    $bdd = new PDO('mysql:host=inde-couvertes.herokuapp.com;dbname=jeuxindés;charset=utf8', 'j.boiteux@outlook.fr', 'login1302');
 }
 catch (Exception $e)
 {
