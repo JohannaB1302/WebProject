@@ -36,7 +36,7 @@
     
      <?php try
     {
-        $bdd = new PDO('mysql:host=inde-couvertes.herokuapp.com;port=8889;dbname=jeuxindes;charset=utf8', 'j.boiteux@outlook.fr', 'login1302');
+        $bdd = new PDO('mysql:host=heroku.com;dbname=jeuxindes;charset=utf8', 'j.boiteux@outlook.fr', 'login1302');
     }
     catch (Exception $e)
     {
